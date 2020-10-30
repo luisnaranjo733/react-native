@@ -88,10 +88,10 @@ public class DeviceInfoModule extends NativeDeviceInfoSpec implements LifecycleE
       WritableNativeMap displayMetrics =
           DisplayMetricsHolder.getDisplayMetricsNativeMap(mFontScale);
       if (!displayMetrics.equals(mPreviousDisplayMetrics)) {
-        mPreviousDisplayMetrics = displayMetrics.copy();
         mReactApplicationContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
             .emit("didUpdateDimensions", displayMetrics);
+        mPreviousDisplayMetrics = displayMetrics;
       }
     } else {
       ReactSoftException.logSoftException(
