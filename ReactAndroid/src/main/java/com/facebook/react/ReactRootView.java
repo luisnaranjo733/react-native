@@ -749,6 +749,10 @@ public class ReactRootView extends FrameLayout implements RootView, ReactRoot {
     }
 
     private void emitUpdateDimensionsEvent() {
+      // Init display metrics before triggering a check for a dimensions change event
+      // This ensures that the DisplayMetricsHolder has up-to date values for DisplayMetrics
+      DisplayMetricsHolder.initDisplayMetrics(getContext());
+
       mReactInstanceManager
           .getCurrentReactContext()
           .getNativeModule(DeviceInfoModule.class)
